@@ -1,5 +1,15 @@
 require 'bundler/setup'
 require 'wsaa'
+require 'webmock/rspec'
+require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+end
+
+WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
