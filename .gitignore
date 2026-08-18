@@ -45,3 +45,8 @@ Gemfile.lock
 *.key
 *.crt
 *.p12
+
+# Project specific
+wsaa-ruby-cert
+wsaa-ruby-csr
+wsaa-ruby-pkey
