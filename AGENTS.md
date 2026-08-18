@@ -38,6 +38,11 @@ Apply this requirement to all new code and modified code.
 - Make commits atomic: include only one coherent change or fix
 - Do not mix unrelated work in a single commit
 - Write succinct commit messages that describe the change
+- Add both co-authors to each commit message:
+  ```
+  Co-Authored-By: Leandro Marcucci <leanucci@gmail.com>
+  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
 
 ## Project Overview
 
