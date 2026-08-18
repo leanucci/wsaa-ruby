@@ -1,3 +1,5 @@
 module Wsaa
-  VERSION = '0.1.0'
+  ##
+  # Current version of the wsaa-ruby gem.
+  VERSION = '0.2.0'
 end

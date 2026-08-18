@@ -2,14 +2,33 @@ require 'openssl'
 require 'base64'
 
 module Wsaa
+  ##
+  # Signs data using CMS/PKCS#7 format.
+  #
+  # Creates cryptographic signatures compatible with WSAA requirements.
+  #
+  # @attr_reader certificate [OpenSSL::X509::Certificate] The signing certificate.
+  # @attr_reader private_key [OpenSSL::PKey::RSA] The private key for signing.
   class CmsSigner
     attr_reader :certificate, :private_key
 
+    ##
+    # Creates a new CmsSigner.
+    #
+    # @param cert_path [String] Path to the certificate file in PEM format.
+    # @param pkey_path [String] Path to the private key file in PEM format.
+    # @raise [SigningError] If the certificate or key cannot be loaded.
     def initialize(cert_path:, pkey_path:)
       @certificate = load_certificate(cert_path)
       @private_key = load_private_key(pkey_path)
     end
 
+    ##
+    # Signs data and returns the base64-encoded CMS signature.
+    #
+    # @param data [String] The data to sign.
+    # @return [String] Base64-encoded PKCS#7/CMS signature.
+    # @raise [SigningError] If signing fails.
     def sign(data)
       flags = OpenSSL::PKCS7::BINARY | OpenSSL::PKCS7::NOSMIMECAP
       pkcs7 = OpenSSL::PKCS7.sign(certificate, private_key, data, [], flags)

@@ -46,6 +46,10 @@ Gemfile.lock
 *.crt
 *.p12
 
+# Allow test fixtures
+!spec/fixtures/test_key.pem
+!spec/fixtures/test_cert.pem
+
 # Project specific
 wsaa-ruby-cert
 wsaa-ruby-csr

@@ -2,14 +2,30 @@ require 'yaml'
 require 'time'
 
 module Wsaa
+  ##
+  # File-based cache for WSAA credentials.
+  #
+  # Stores credentials as YAML files with date-based filenames.
+  #
+  # @attr_reader cache_dir [String] Directory where cache files are stored.
+  # @attr_reader service [String] The service name used in the cache filename.
   class CredentialStore
     attr_reader :cache_dir, :service
 
+    ##
+    # Creates a new CredentialStore.
+    #
+    # @param cache_dir [String] Directory for cache files.
+    # @param service [String] The service name.
     def initialize(cache_dir:, service:)
       @cache_dir = cache_dir
       @service = service
     end
 
+    ##
+    # Reads cached credentials.
+    #
+    # @return [Credentials, nil] The cached credentials, or nil if not found or expired.
     def read
       return nil unless File.exist?(cache_file_path)
 
@@ -27,15 +43,26 @@ module Wsaa
       nil
     end
 
+    ##
+    # Writes credentials to the cache.
+    #
+    # @param credentials [Credentials] The credentials to cache.
+    # @return [Credentials] The same credentials object.
     def write(credentials)
       File.write(cache_file_path, YAML.dump(credentials.to_h.transform_keys(&:to_s)))
       credentials
     end
 
+    ##
+    # Deletes the cache file.
     def clear
       File.delete(cache_file_path) if File.exist?(cache_file_path)
     end
 
+    ##
+    # Returns the full path to the cache file.
+    #
+    # @return [String] The cache file path.
     def cache_file_path
       File.join(cache_dir, cache_filename)
     end
