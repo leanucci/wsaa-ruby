@@ -2,13 +2,29 @@ require 'savon'
 require 'rexml/document'
 
 module Wsaa
+  ##
+  # WSAA authentication client.
+  #
+  # Orchestrates the authentication flow: builds TRA, signs it, calls WSAA, and caches credentials.
+  #
+  # @attr_reader configuration [Configuration] The client configuration.
   class Client
     attr_reader :configuration
 
+    ##
+    # Creates a new Client.
+    #
+    # @param configuration [Configuration] The client configuration.
     def initialize(configuration)
       @configuration = configuration
     end
 
+    ##
+    # Authenticates with WSAA using cached credentials if available.
+    #
+    # @return [Credentials] The authentication credentials.
+    # @raise [ConfigurationError] If the configuration is invalid.
+    # @raise [AuthenticationError] If authentication fails.
     def authenticate
       configuration.validate!
 
@@ -18,6 +34,12 @@ module Wsaa
       authenticate!
     end
 
+    ##
+    # Authenticates with WSAA, ignoring any cached credentials.
+    #
+    # @return [Credentials] The authentication credentials.
+    # @raise [ConfigurationError] If the configuration is invalid.
+    # @raise [AuthenticationError] If authentication fails.
     def authenticate!
       configuration.validate!
 

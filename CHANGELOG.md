@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-18
+
+### Added
+- RDoc documentation for all public classes and methods
+- GitHub Actions CI workflow for running tests on PRs
+- GitHub Actions release workflow for publishing to RubyGems
+
 ## [0.1.0] - 2026-08-18
 
 ### Added
